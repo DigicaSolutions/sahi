@@ -14,8 +14,6 @@ from threading import Lock, Thread
 from typing import Dict, List, Optional, Set, Union
 
 import numpy as np
-from shapely import GeometryCollection, MultiPolygon, Polygon
-from shapely.validation import make_valid
 from tqdm import tqdm
 
 from sahi.utils.file import is_colab, load_json, save_json
