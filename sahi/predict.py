@@ -92,11 +92,11 @@ def get_prediction(
         image_as_pil = read_image_as_pil(image[0])
         # get prediction
         time_start = time.time()
-        detection_model.perform_inference(np.ascontiguousarray(image_as_pil), batch_size=num_batch)
+        detection_model.perform_inference(np.ascontiguousarray(image_as_pil))
     else:
         images_as_pil = [np.ascontiguousarray(read_image_as_pil(img)) for img in image]
         time_start = time.time()
-        detection_model.perform_inference(images_as_pil, batch_size=num_batch)
+        detection_model.perform_inference(images_as_pil)
     time_end = time.time() - time_start
     durations_in_seconds["prediction"] = time_end
 
