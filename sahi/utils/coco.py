@@ -1376,7 +1376,7 @@ class Coco:
     def export_as_yolov5(
         self,
         output_dir,
-        train_split_rate=1,
+        train_split_rate: float = 1.0,
         numpy_seed=0,
         mp=False,
         disable_symlink=False,
