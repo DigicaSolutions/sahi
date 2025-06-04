@@ -3,6 +3,7 @@
 # Modified by Sinan O Altinuc, 2020.
 
 import copy
+import errno
 import logging
 import os
 import threading
@@ -1733,6 +1734,15 @@ def export_yolov5_images_and_txts_from_coco_object(
                 disable_symlink,
             )
 
+def symlink_force(target, link_name):
+    try:
+        os.symlink(target, link_name)
+    except OSError as e:
+        if e.errno == errno.EEXIST:
+            os.remove(link_name)
+            os.symlink(target, link_name)
+        else:
+            raise e
 
 def export_single_yolov5_image_and_corresponding_txt(
     coco_image,
@@ -1801,7 +1811,8 @@ def export_single_yolov5_image_and_corresponding_txt(
 
         shutil.copy(coco_image_path, yolo_image_path)
     else:
-        os.symlink(coco_image_path, yolo_image_path)
+        # os.symlink(coco_image_path, yolo_image_path)
+        symlink_force(coco_image_path, yolo_image_path)
     # calculate annotation normalization ratios
     width = coco_image.width
     height = coco_image.height
